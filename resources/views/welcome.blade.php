@@ -31,6 +31,16 @@
 
 @endif
 
+@if(session()->has('loginerror'))
+      <div class="alert alert-danger">
+      <ul>
+      {{ session()->get('loginerror') }}
+      </ul>
+      
+      </div>
+
+@endif
+
 
 <h2>Register</h2>
 <form class="form-horozontal" method="post" action="{{ route('signup') }}">
@@ -78,7 +88,7 @@
 
 <div class="col-md-6">
 <h2>Login</h2>
-<form class="form-horozontal" method="post" action="{{ route('signin') }}">
+<form class="form-horozontal" method="post" action="{{ route('login') }}">
 @csrf
 <div class="form-group row">
   <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>

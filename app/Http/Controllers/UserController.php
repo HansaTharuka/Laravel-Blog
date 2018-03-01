@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -27,8 +29,25 @@ $table=new User();
 
 
 
-    public function LoginUser(){
+    public function LoginUser(Request $request){
 
-        
+        $data=$request->only('email','password');
+        if(Auth::attempt($data)){
+            return redirect()->route('home');
+        }
+
+        return redirect()->back()->with('message','Login Failed');
+    }
+
+    public function getHome(){
+
+        return view ('home');
+    }
+
+    public function logout(){
+
+        Auth::logout();
+        Session::flush();
+        return redirect('/')->with('message','Logged Out');
     }
 }
